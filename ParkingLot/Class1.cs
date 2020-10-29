@@ -1,4 +1,4 @@
-﻿namespace Dotnet_project_template
+﻿namespace ParkingLot
 {
     using System;
     public class Class1

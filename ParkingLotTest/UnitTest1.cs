@@ -1,6 +1,6 @@
-namespace Dotnet_project_template_test
+namespace ParkingLotTest
 {
-    using Dotnet_project_template;
+    using ParkingLot;
     using Xunit;
 
     public class UnitTest1
