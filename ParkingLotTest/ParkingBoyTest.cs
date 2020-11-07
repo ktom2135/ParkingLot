@@ -1,5 +1,6 @@
 namespace ParkingLotTest
 {
+    using System;
     using ParkingLot;
     using Xunit;
 
@@ -114,6 +115,19 @@ namespace ParkingLotTest
             // when
             // then
             Assert.Throws<NoPositonException>(() => parkingBoy.Park(carB));
+        }
+
+        [Fact]
+        public void Should_throw_exception_when_park_given_parked_car()
+        {
+            // given
+            Car car = new Car();
+            ParkingBoy parkingBoy = defaultParkingBoy;
+            parkingBoy.Park(car);
+
+            // when
+            // then
+            Assert.Throws<ArgumentException>(() => parkingBoy.Park(car));
         }
     }
 }

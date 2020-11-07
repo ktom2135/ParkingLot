@@ -15,6 +15,11 @@ namespace ParkingLot
 
         public Ticket Park(Car car)
         {
+            if (parkedCars.Values.Contains(car))
+            {
+                throw new ArgumentException();
+            }
+
             if (capacity == 0)
             {
                 throw new NoPositonException();
