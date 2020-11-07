@@ -52,5 +52,20 @@ namespace ParkingLotTest
             Assert.Equal(carA, fetchedCarA);
             Assert.Equal(carB, fetchedCarB);
         }
+
+        [Fact]
+        public void Should_throw_exception_when_fetch_given_wrong_ticket()
+        {
+            // given
+            Car car = new Car();
+            ParkingBoy parkingBoy = new ParkingBoy();
+            parkingBoy.Park(car);
+
+            Ticket wrongTicket = new Ticket();
+
+            // when
+            // then
+            Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(wrongTicket));
+        }
     }
 }

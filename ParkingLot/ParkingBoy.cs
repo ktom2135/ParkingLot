@@ -20,6 +20,11 @@ namespace ParkingLot
 
         public Car Fetch(Ticket ticket)
         {
+            if (!parkedCars.ContainsKey(ticket))
+            {
+                throw new WrongTicketException();
+            }
+
             return parkedCars[ticket];
         }
     }
