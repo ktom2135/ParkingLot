@@ -183,6 +183,21 @@ namespace ParkingLotTest
             Assert.Equal(car, fetchedCar);
         }
 
+        [Fact]
+        public void Should_contain_specify_parking_body_when_get_management_list_given_already_added()
+        {
+            // given
+            ParkingManager parkingManager = defaultParkingManager;
+            ParkingBoy parkingBoy = new ParkingBoy(new List<ParkingLot>());
+            parkingManager.AddParkingBoy(parkingBoy);
+
+            // when
+            List<ParkingBoy> managedParkingBoys = parkingManager.GetManagedParkingBoys();
+
+            // then
+            Assert.Contains(parkingBoy, managedParkingBoys);
+        }
+
         private static ParkingLot CreateFullParkingLot()
         {
             ParkingLot parkingLot = new ParkingLot(1);
