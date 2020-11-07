@@ -1,6 +1,7 @@
 namespace ParkingLotTest
 {
     using System;
+    using System.Collections.Generic;
     using ParkingLot;
     using Xunit;
 
@@ -10,7 +11,8 @@ namespace ParkingLotTest
 
         public ParkingBoyTest()
         {
-            defaultParkingBoy = new ParkingBoy(10);
+            List<ParkingLot> parkingLots = new List<ParkingLot> { new ParkingLot(10) };
+            defaultParkingBoy = new ParkingBoy(parkingLots);
         }
 
         [Fact]
@@ -112,7 +114,7 @@ namespace ParkingLotTest
             // given
             Car carA = new Car();
             Car carB = new Car();
-            ParkingBoy parkingBoy = new ParkingBoy(1);
+            ParkingBoy parkingBoy = new ParkingBoy(new List<ParkingLot> { new ParkingLot(1) });
             Ticket ticket = parkingBoy.Park(carA);
 
             // when

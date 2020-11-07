@@ -5,21 +5,21 @@ namespace ParkingLot
 {
     public class ParkingBoy
     {
-        private ParkingLot parkingLot;
+        private List<ParkingLot> parkingLots;
 
-        public ParkingBoy(int capacity = 0)
+        public ParkingBoy(List<ParkingLot> parkingLots)
         {
-            parkingLot = new ParkingLot(capacity);
+            this.parkingLots = parkingLots;
         }
 
         public Car Fetch(Ticket ticket)
         {
-            return parkingLot.Fetch(ticket);
+            return parkingLots[0].Fetch(ticket);
         }
 
         public Ticket Park(Car car)
         {
-            return parkingLot.Park(car);
+            return parkingLots[0].Park(car);
         }
     }
 }
