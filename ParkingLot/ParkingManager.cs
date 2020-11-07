@@ -20,5 +20,15 @@ namespace ParkingLot
         {
             return managedParkingBoys;
         }
+
+        public Ticket ParkByBoy(ParkingBoy parkingBoy, Car car)
+        {
+            return parkingBoy.Park(car);
+        }
+
+        public Car FetchByBoy(ParkingBoy parkingBoy, Ticket ticket)
+        {
+            return parkingBoy.Fetch(ticket);
+        }
     }
 }

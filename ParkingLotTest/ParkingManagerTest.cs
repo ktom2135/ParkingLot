@@ -198,6 +198,26 @@ namespace ParkingLotTest
             Assert.Contains(parkingBoy, managedParkingBoys);
         }
 
+        [Fact]
+        public void Should_park_to_parking_lot_managed_by_parking_boy_when_specify_boy()
+        {
+            // given
+            Car car = new Car();
+            Ticket ticket = new Ticket();
+            ParkingManager parkingManager = defaultParkingManager;
+            Mock<ParkingLot> boyManagedParkingLot = new Mock<ParkingLot>(1);
+            boyManagedParkingLot.Setup(mock => mock.Park(car)).Returns(ticket);
+
+            ParkingBoy parkingBoy = new ParkingBoy(new List<ParkingLot>() { boyManagedParkingLot.Object });
+            parkingManager.AddParkingBoy(parkingBoy);
+
+            // when
+            Ticket ticketFromBoy = parkingManager.ParkByBoy(parkingBoy, car);
+
+            // then
+            boyManagedParkingLot.Verify(parkingLot => parkingLot.Park(car));
+        }
+
         private static ParkingLot CreateFullParkingLot()
         {
             ParkingLot parkingLot = new ParkingLot(1);
