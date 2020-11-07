@@ -117,7 +117,8 @@ namespace ParkingLotTest
 
             // when
             // then
-            Assert.Throws<NoPositonException>(() => parkingBoy.Park(carB));
+            NoPositonException exception = Assert.Throws<NoPositonException>(() => parkingBoy.Park(carB));
+            Assert.Equal("Not enough position.", exception.Message);
         }
 
         [Fact]
