@@ -35,6 +35,11 @@ namespace ParkingLot
             return capacity - parkedCars.Count() == 0;
         }
 
+        public bool HasVehicle(Ticket ticket)
+        {
+            return parkedCars.ContainsKey(ticket);
+        }
+
         private Car FetchCar(Ticket ticket)
         {
             Car fechedCar = parkedCars[ticket];

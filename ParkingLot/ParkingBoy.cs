@@ -17,7 +17,14 @@ namespace ParkingLot
         {
             ValidateTicket(ticket);
 
-            return parkingLots[0].Fetch(ticket);
+            ParkingLot parkingLot = parkingLots.FirstOrDefault(parkingLot => parkingLot.HasVehicle(ticket));
+
+            if (parkingLot == null)
+            {
+                throw new WrongTicketException("Unrecognized parking ticket.");
+            }
+
+            return parkingLot.Fetch(ticket);
         }
 
         public Ticket Park(Car car)

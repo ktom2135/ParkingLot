@@ -166,6 +166,23 @@ namespace ParkingLotTest
             secondParkingLot.Verify(parkingLot => parkingLot.Park(car));
         }
 
+        [Fact]
+        public void Should_return_car_when_fetch_given_multi_parking_lots()
+        {
+            // given
+            Car car = new Car();
+            ParkingLot firstParkingLot = CreateFullParkingLot();
+            ParkingLot secondParkingLot = new ParkingLot(1);
+            ParkingBoy parkingBoy = new ParkingBoy(new List<ParkingLot> { firstParkingLot, secondParkingLot });
+            Ticket ticket = parkingBoy.Park(car);
+
+            // when
+            Car fetchedCar = parkingBoy.Fetch(ticket);
+
+            // then
+            Assert.Equal(car, fetchedCar);
+        }
+
         private static ParkingLot CreateFullParkingLot()
         {
             ParkingLot parkingLot = new ParkingLot(1);
