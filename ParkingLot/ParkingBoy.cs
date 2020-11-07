@@ -20,7 +20,7 @@ namespace ParkingLot
 
         public Car Fetch(Ticket ticket)
         {
-            if (!parkedCars.ContainsKey(ticket))
+            if (ticket == null || !parkedCars.ContainsKey(ticket))
             {
                 throw new WrongTicketException();
             }

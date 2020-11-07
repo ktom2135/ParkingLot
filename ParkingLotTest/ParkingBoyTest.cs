@@ -67,5 +67,18 @@ namespace ParkingLotTest
             // then
             Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(wrongTicket));
         }
+
+        [Fact]
+        public void Should_throw_exception_when_fetch_given_no_ticket()
+        {
+            // given
+            Car car = new Car();
+            ParkingBoy parkingBoy = new ParkingBoy();
+            parkingBoy.Park(car);
+
+            // when
+            // then
+            Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(null));
+        }
     }
 }
