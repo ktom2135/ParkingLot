@@ -240,6 +240,23 @@ namespace ParkingLotTest
             Assert.Equal(fetchedCar, car);
         }
 
+        [Fact]
+        public void Should_display_error_message_to_customer_when_park_given_specify_boy()
+        {
+            // given
+            Car car = new Car();
+            ParkingManager parkingManager = defaultParkingManager;
+            ParkingLot boyManagedParkingLot = CreateFullParkingLot();
+
+            ParkingBoy parkingBoy = new ParkingBoy(new List<ParkingLot>() { boyManagedParkingLot });
+            parkingManager.AddParkingBoy(parkingBoy);
+
+            // when
+            // then
+            NoPositonException exception = Assert.Throws<NoPositonException>(() => parkingManager.ParkByBoy(parkingBoy, car));
+            Assert.Equal("Not enough position.", exception.Message);
+        }
+
         private static ParkingLot CreateFullParkingLot()
         {
             ParkingLot parkingLot = new ParkingLot(1);
