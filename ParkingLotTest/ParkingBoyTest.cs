@@ -129,5 +129,17 @@ namespace ParkingLotTest
             // then
             Assert.Throws<ArgumentException>(() => parkingBoy.Park(car));
         }
+
+        [Fact]
+        public void Should_throw_exception_when_park_given_null_car()
+        {
+            // given
+            Car car = new Car();
+            ParkingBoy parkingBoy = defaultParkingBoy;
+
+            // when
+            // then
+            Assert.Throws<ArgumentNullException>(() => parkingBoy.Park(null));
+        }
     }
 }
