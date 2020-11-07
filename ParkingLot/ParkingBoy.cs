@@ -38,9 +38,14 @@ namespace ParkingLot
 
         private void ValidateTicket(Ticket ticket)
         {
-            if (ticket == null || !parkedCars.ContainsKey(ticket))
+            if (ticket == null)
             {
                 throw new WrongTicketException();
+            }
+
+            if (!parkedCars.ContainsKey(ticket))
+            {
+                throw new WrongTicketException("Unrecognized parking ticket.");
             }
         }
 

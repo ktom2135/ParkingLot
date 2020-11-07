@@ -73,7 +73,8 @@ namespace ParkingLotTest
 
             // when
             // then
-            Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(wrongTicket));
+            WrongTicketException exception = Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(wrongTicket));
+            Assert.Equal("Unrecognized parking ticket.", exception.Message);
         }
 
         [Fact]
@@ -100,7 +101,8 @@ namespace ParkingLotTest
 
             // when
             // then
-            Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(ticket));
+            WrongTicketException exception = Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(ticket));
+            Assert.Equal("Unrecognized parking ticket.", exception.Message);
         }
 
         [Fact]

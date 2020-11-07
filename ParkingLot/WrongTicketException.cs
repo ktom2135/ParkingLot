@@ -6,7 +6,7 @@ namespace ParkingLot
     [Serializable]
     public class WrongTicketException : Exception
     {
-        public WrongTicketException()
+        public WrongTicketException() : base()
         {
         }
 
