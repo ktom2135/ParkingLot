@@ -15,11 +15,15 @@ namespace ParkingLot
 
         public Car Fetch(Ticket ticket)
         {
+            ValidateTicket(ticket);
+
             return parkingLots[0].Fetch(ticket);
         }
 
         public Ticket Park(Car car)
         {
+            ValidateCar(car);
+
             ParkingLot availableParkingLot = parkingLots.FirstOrDefault(parkingLot => !parkingLot.IsFull());
 
             if (availableParkingLot == null)
@@ -28,6 +32,22 @@ namespace ParkingLot
             }
 
             return availableParkingLot.Park(car);
+        }
+
+        private void ValidateTicket(Ticket ticket)
+        {
+            if (ticket == null)
+            {
+                throw new NoTicketProvidedException("Please provide your parking ticket.");
+            }
+        }
+
+        private void ValidateCar(Car car)
+        {
+            if (car == null)
+            {
+                throw new ArgumentNullException();
+            }
         }
     }
 }

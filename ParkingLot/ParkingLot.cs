@@ -44,11 +44,6 @@ namespace ParkingLot
 
         private void ValidateTicket(Ticket ticket)
         {
-            if (ticket == null)
-            {
-                throw new NoTicketProvidedException("Please provide your parking ticket.");
-            }
-
             if (!parkedCars.ContainsKey(ticket))
             {
                 throw new WrongTicketException("Unrecognized parking ticket.");
@@ -72,11 +67,6 @@ namespace ParkingLot
 
         private void ValidateCar(Car car)
         {
-            if (car == null)
-            {
-                throw new ArgumentNullException();
-            }
-
             if (parkedCars.Values.Contains(car))
             {
                 throw new ArgumentException();
