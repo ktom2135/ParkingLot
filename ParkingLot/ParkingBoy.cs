@@ -5,77 +5,21 @@ namespace ParkingLot
 {
     public class ParkingBoy
     {
-        private IDictionary<Ticket, Car> parkedCars = new Dictionary<Ticket, Car>();
-        private int capacity;
+        private ParkingLot parkingLot;
 
         public ParkingBoy(int capacity = 0)
         {
-            this.capacity = capacity;
+            parkingLot = new ParkingLot(capacity);
         }
 
         public Car Fetch(Ticket ticket)
         {
-            ValidateTicket(ticket);
-
-            return FetchCar(ticket);
+            return parkingLot.Fetch(ticket);
         }
 
         public Ticket Park(Car car)
         {
-            ValidateCar(car);
-
-            CheckCapacity();
-
-            return ParkCar(car);
-        }
-
-        private Car FetchCar(Ticket ticket)
-        {
-            Car fechedCar = parkedCars[ticket];
-            parkedCars.Remove(ticket);
-            return fechedCar;
-        }
-
-        private void ValidateTicket(Ticket ticket)
-        {
-            if (ticket == null)
-            {
-                throw new NoTicketProvidedException("Please provide your parking ticket.");
-            }
-
-            if (!parkedCars.ContainsKey(ticket))
-            {
-                throw new WrongTicketException("Unrecognized parking ticket.");
-            }
-        }
-
-        private Ticket ParkCar(Car car)
-        {
-            Ticket ticket = new Ticket();
-            parkedCars.Add(ticket, car);
-            capacity--;
-            return ticket;
-        }
-
-        private void CheckCapacity()
-        {
-            if (capacity == 0)
-            {
-                throw new NoPositonException("Not enough position.");
-            }
-        }
-
-        private void ValidateCar(Car car)
-        {
-            if (car == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            if (parkedCars.Values.Contains(car))
-            {
-                throw new ArgumentException();
-            }
+            return parkingLot.Park(car);
         }
     }
 }
