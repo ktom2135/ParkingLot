@@ -100,7 +100,7 @@ namespace ParkingLotTest
 
             // when
             // then
-            Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(null));
+            Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(ticket));
         }
 
         [Fact]

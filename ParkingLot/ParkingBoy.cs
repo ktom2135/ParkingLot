@@ -20,7 +20,9 @@ namespace ParkingLot
                 throw new WrongTicketException();
             }
 
-            return parkedCars[ticket];
+            Car fechedCar = parkedCars[ticket];
+            parkedCars.Remove(ticket);
+            return fechedCar;
         }
 
         public Ticket Park(Car car)
