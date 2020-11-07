@@ -15,14 +15,9 @@ namespace ParkingLot
 
         public Car Fetch(Ticket ticket)
         {
-            if (ticket == null || !parkedCars.ContainsKey(ticket))
-            {
-                throw new WrongTicketException();
-            }
+            ValidateTicket(ticket);
 
-            Car fechedCar = parkedCars[ticket];
-            parkedCars.Remove(ticket);
-            return fechedCar;
+            return FetchCar(ticket);
         }
 
         public Ticket Park(Car car)
@@ -32,6 +27,21 @@ namespace ParkingLot
             CheckCapacity();
 
             return ParkCar(car);
+        }
+
+        private Car FetchCar(Ticket ticket)
+        {
+            Car fechedCar = parkedCars[ticket];
+            parkedCars.Remove(ticket);
+            return fechedCar;
+        }
+
+        private void ValidateTicket(Ticket ticket)
+        {
+            if (ticket == null || !parkedCars.ContainsKey(ticket))
+            {
+                throw new WrongTicketException();
+            }
         }
 
         private Ticket ParkCar(Car car)
