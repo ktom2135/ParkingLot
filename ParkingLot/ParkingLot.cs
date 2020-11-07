@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ParkingLot
 {
@@ -20,13 +21,18 @@ namespace ParkingLot
             return FetchCar(ticket);
         }
 
-        public Ticket Park(Car car)
+        public virtual Ticket Park(Car car)
         {
             ValidateCar(car);
 
             CheckCapacity();
 
             return ParkCar(car);
+        }
+
+        public bool IsFull()
+        {
+            return capacity - parkedCars.Count() == 0;
         }
 
         private Car FetchCar(Ticket ticket)
@@ -53,13 +59,12 @@ namespace ParkingLot
         {
             Ticket ticket = new Ticket();
             parkedCars.Add(ticket, car);
-            capacity--;
             return ticket;
         }
 
         private void CheckCapacity()
         {
-            if (capacity == 0)
+            if (IsFull())
             {
                 throw new NoPositonException("Not enough position.");
             }

@@ -2,6 +2,7 @@ namespace ParkingLotTest
 {
     using System;
     using System.Collections.Generic;
+    using Moq;
     using ParkingLot;
     using Xunit;
 
@@ -146,6 +147,30 @@ namespace ParkingLotTest
             // when
             // then
             Assert.Throws<ArgumentNullException>(() => parkingBoy.Park(null));
+        }
+
+        [Fact]
+        public void Should_park_to_second_parking_lot_when_park_given_first_parking_lot_is_full()
+        {
+            // given
+            Car car = new Car();
+            ParkingLot firstParkingLot = CreateFullParkingLot();
+            Mock<ParkingLot> secondParkingLot = new Mock<ParkingLot>(1);
+            secondParkingLot.Setup(mock => mock.Park(It.IsAny<Car>())).Returns(new Ticket());
+            ParkingBoy parkingBoy = new ParkingBoy(new List<ParkingLot> { firstParkingLot, secondParkingLot.Object });
+
+            // when
+            Ticket ticket = parkingBoy.Park(car);
+
+            // then
+            secondParkingLot.Verify(parkingLot => parkingLot.Park(car));
+        }
+
+        private static ParkingLot CreateFullParkingLot()
+        {
+            ParkingLot parkingLot = new ParkingLot(1);
+            parkingLot.Park(new Car());
+            return parkingLot;
         }
     }
 }

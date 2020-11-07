@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace ParkingLot
@@ -19,7 +20,14 @@ namespace ParkingLot
 
         public Ticket Park(Car car)
         {
-            return parkingLots[0].Park(car);
+            ParkingLot availableParkingLot = parkingLots.FirstOrDefault(parkingLot => !parkingLot.IsFull());
+
+            if (availableParkingLot == null)
+            {
+                throw new NoPositonException("Not enough position.");
+            }
+
+            return availableParkingLot.Park(car);
         }
     }
 }
