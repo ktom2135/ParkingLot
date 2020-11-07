@@ -257,6 +257,25 @@ namespace ParkingLotTest
             Assert.Equal("Not enough position.", exception.Message);
         }
 
+        [Fact]
+        public void Should_display_error_message_to_customer_when_fetch_failed_by_specify_boy()
+        {
+            // given
+            Car car = new Car();
+            ParkingManager parkingManager = defaultParkingManager;
+            ParkingLot boyManagedParkingLot = new ParkingLot(1);
+
+            ParkingBoy parkingBoy = new ParkingBoy(new List<ParkingLot>() { boyManagedParkingLot });
+            parkingManager.AddParkingBoy(parkingBoy);
+
+            Ticket wrongTicket = new Ticket();
+
+            // when
+            // then
+            WrongTicketException exception = Assert.Throws<WrongTicketException>(() => parkingManager.FetchByBoy(parkingBoy, wrongTicket));
+            Assert.Equal("Unrecognized parking ticket.", exception.Message);
+        }
+
         private static ParkingLot CreateFullParkingLot()
         {
             ParkingLot parkingLot = new ParkingLot(1);
