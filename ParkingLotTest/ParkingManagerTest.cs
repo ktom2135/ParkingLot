@@ -241,7 +241,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_display_error_message_to_customer_when_park_given_specify_boy()
+        public void Should_display_error_message_to_customer_when_park_failed_by_specify_boy()
         {
             // given
             Car car = new Car();
