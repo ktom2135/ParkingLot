@@ -45,6 +45,11 @@ namespace ParkingLot
             return capacity - parkedCars.Count();
         }
 
+        public double AvailablePositionRate()
+        {
+            return (double)AvailablePositions() / capacity;
+        }
+
         private Car FetchCar(Ticket ticket)
         {
             Car fechedCar = parkedCars[ticket];
