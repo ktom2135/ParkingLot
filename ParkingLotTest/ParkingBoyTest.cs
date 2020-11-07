@@ -5,12 +5,19 @@ namespace ParkingLotTest
 
     public class ParkingBoyTest
     {
+        private ParkingBoy defaultParkingBoy;
+
+        public ParkingBoyTest()
+        {
+            defaultParkingBoy = new ParkingBoy(10);
+        }
+
         [Fact]
         public void Should_return_ticket_when_park_a_car()
         {
             // given
             Car car = new Car();
-            ParkingBoy parkingBoy = new ParkingBoy();
+            ParkingBoy parkingBoy = defaultParkingBoy;
 
             // when
             Ticket ticket = parkingBoy.Park(car);
@@ -24,7 +31,7 @@ namespace ParkingLotTest
         {
             // given
             Car car = new Car();
-            ParkingBoy parkingBoy = new ParkingBoy();
+            ParkingBoy parkingBoy = defaultParkingBoy;
             Ticket ticket = parkingBoy.Park(car);
 
             // when
@@ -40,7 +47,7 @@ namespace ParkingLotTest
             // given
             Car carA = new Car();
             Car carB = new Car();
-            ParkingBoy parkingBoy = new ParkingBoy();
+            ParkingBoy parkingBoy = defaultParkingBoy;
             Ticket ticketA = parkingBoy.Park(carA);
             Ticket ticketB = parkingBoy.Park(carB);
 
@@ -58,7 +65,7 @@ namespace ParkingLotTest
         {
             // given
             Car car = new Car();
-            ParkingBoy parkingBoy = new ParkingBoy();
+            ParkingBoy parkingBoy = defaultParkingBoy;
             parkingBoy.Park(car);
 
             Ticket wrongTicket = new Ticket();
@@ -73,7 +80,7 @@ namespace ParkingLotTest
         {
             // given
             Car car = new Car();
-            ParkingBoy parkingBoy = new ParkingBoy();
+            ParkingBoy parkingBoy = defaultParkingBoy;
             parkingBoy.Park(car);
 
             // when
@@ -86,13 +93,27 @@ namespace ParkingLotTest
         {
             // given
             Car car = new Car();
-            ParkingBoy parkingBoy = new ParkingBoy();
+            ParkingBoy parkingBoy = defaultParkingBoy;
             Ticket ticket = parkingBoy.Park(car);
             parkingBoy.Fetch(ticket);
 
             // when
             // then
             Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(null));
+        }
+
+        [Fact]
+        public void Should_throw_exception_when_park_given_has_no_position()
+        {
+            // given
+            Car carA = new Car();
+            Car carB = new Car();
+            ParkingBoy parkingBoy = new ParkingBoy(1);
+            Ticket ticket = parkingBoy.Park(carA);
+
+            // when
+            // then
+            Assert.Throws<NoPositonException>(() => parkingBoy.Park(carB));
         }
     }
 }
