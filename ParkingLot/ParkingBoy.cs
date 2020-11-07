@@ -10,14 +10,16 @@ namespace ParkingLot
 
         public ParkingBoy(List<ParkingLot> parkingLots)
         {
-            this.parkingLots = parkingLots;
+            this.ParkingLots = parkingLots;
         }
+
+        protected List<ParkingLot> ParkingLots { get; }
 
         public Car Fetch(Ticket ticket)
         {
             ValidateTicket(ticket);
 
-            ParkingLot parkingLot = parkingLots.FirstOrDefault(parkingLot => parkingLot.HasVehicle(ticket));
+            ParkingLot parkingLot = ParkingLots.FirstOrDefault(parkingLot => parkingLot.HasVehicle(ticket));
 
             if (parkingLot == null)
             {
@@ -27,11 +29,11 @@ namespace ParkingLot
             return parkingLot.Fetch(ticket);
         }
 
-        public Ticket Park(Car car)
+        public virtual Ticket Park(Car car)
         {
             ValidateCar(car);
 
-            ParkingLot availableParkingLot = parkingLots.FirstOrDefault(parkingLot => !parkingLot.IsFull());
+            ParkingLot availableParkingLot = ParkingLots.FirstOrDefault(parkingLot => !parkingLot.IsFull());
 
             if (availableParkingLot == null)
             {
@@ -41,19 +43,19 @@ namespace ParkingLot
             return availableParkingLot.Park(car);
         }
 
+        protected void ValidateCar(Car car)
+        {
+            if (car == null)
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
         private void ValidateTicket(Ticket ticket)
         {
             if (ticket == null)
             {
                 throw new NoTicketProvidedException("Please provide your parking ticket.");
-            }
-        }
-
-        private void ValidateCar(Car car)
-        {
-            if (car == null)
-            {
-                throw new ArgumentNullException();
             }
         }
     }

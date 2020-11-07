@@ -40,6 +40,11 @@ namespace ParkingLot
             return parkedCars.ContainsKey(ticket);
         }
 
+        public int AvailablePositions()
+        {
+            return capacity - parkedCars.Count();
+        }
+
         private Car FetchCar(Ticket ticket)
         {
             Car fechedCar = parkedCars[ticket];
