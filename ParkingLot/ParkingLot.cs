@@ -14,7 +14,7 @@ namespace ParkingLot
             this.capacity = capacity;
         }
 
-        public Car Fetch(Ticket ticket)
+        public virtual Car Fetch(Ticket ticket)
         {
             ValidateTicket(ticket);
 

@@ -218,6 +218,28 @@ namespace ParkingLotTest
             boyManagedParkingLot.Verify(parkingLot => parkingLot.Park(car));
         }
 
+        [Fact]
+        public void Should_fetch_from_parking_lot_managed_by_parking_boy_when_specify_boy()
+        {
+            // given
+            Car car = new Car();
+            ParkingManager parkingManager = defaultParkingManager;
+            Mock<ParkingLot> boyManagedParkingLot = new Mock<ParkingLot>(1);
+            boyManagedParkingLot.Setup(mock => mock.Park(It.IsAny<Car>())).CallBase();
+            boyManagedParkingLot.Setup(mock => mock.Fetch(It.IsAny<Ticket>())).CallBase();
+
+            ParkingBoy parkingBoy = new ParkingBoy(new List<ParkingLot>() { boyManagedParkingLot.Object });
+            parkingManager.AddParkingBoy(parkingBoy);
+
+            // when
+            Ticket ticket = parkingManager.ParkByBoy(parkingBoy, car);
+            Car fetchedCar = parkingManager.FetchByBoy(parkingBoy, ticket);
+
+            // then
+            boyManagedParkingLot.Verify(parkingLot => parkingLot.Fetch(ticket));
+            Assert.Equal(fetchedCar, car);
+        }
+
         private static ParkingLot CreateFullParkingLot()
         {
             ParkingLot parkingLot = new ParkingLot(1);
