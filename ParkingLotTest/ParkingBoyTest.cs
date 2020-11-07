@@ -33,5 +33,24 @@ namespace ParkingLotTest
             // then
             Assert.Equal(car, fetchedCar);
         }
+
+        [Fact]
+        public void Should_return_right_car_when_fetch_given_correspond_ticket()
+        {
+            // given
+            Car carA = new Car();
+            Car carB = new Car();
+            ParkingBoy parkingBoy = new ParkingBoy();
+            Ticket ticketA = parkingBoy.Park(carA);
+            Ticket ticketB = parkingBoy.Park(carB);
+
+            // when
+            Car fetchedCarA = parkingBoy.Fetch(ticketA);
+            Car fetchedCarB = parkingBoy.Fetch(ticketB);
+
+            // then
+            Assert.Equal(carA, fetchedCarA);
+            Assert.Equal(carB, fetchedCarB);
+        }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace ParkingLot
 {
     public class ParkingBoy
     {
-        private Car parkedCar;
+        private IDictionary<Ticket, Car> parkedCars = new Dictionary<Ticket, Car>();
 
         public ParkingBoy()
         {
@@ -11,13 +13,14 @@ namespace ParkingLot
 
         public Ticket Park(Car car)
         {
-            parkedCar = car;
-            return new Ticket();
+            Ticket ticket = new Ticket();
+            parkedCars.Add(ticket, car);
+            return ticket;
         }
 
         public Car Fetch(Ticket ticket)
         {
-            return parkedCar;
+            return parkedCars[ticket];
         }
     }
 }
