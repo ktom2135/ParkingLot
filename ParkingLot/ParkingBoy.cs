@@ -40,7 +40,7 @@ namespace ParkingLot
         {
             if (ticket == null)
             {
-                throw new WrongTicketException();
+                throw new NoTicketProvidedException("Please provide your parking ticket.");
             }
 
             if (!parkedCars.ContainsKey(ticket))

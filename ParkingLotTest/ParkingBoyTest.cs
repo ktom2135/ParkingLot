@@ -87,7 +87,8 @@ namespace ParkingLotTest
 
             // when
             // then
-            Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(null));
+            NoTicketProvidedException exception = Assert.Throws<NoTicketProvidedException>(() => parkingBoy.Fetch(null));
+            Assert.Equal("Please provide your parking ticket.", exception.Message);
         }
 
         [Fact]
