@@ -13,7 +13,42 @@ namespace ParkingLot
             this.capacity = capacity;
         }
 
+        public Car Fetch(Ticket ticket)
+        {
+            if (ticket == null || !parkedCars.ContainsKey(ticket))
+            {
+                throw new WrongTicketException();
+            }
+
+            return parkedCars[ticket];
+        }
+
         public Ticket Park(Car car)
+        {
+            ValidateCar(car);
+
+            CheckCapacity();
+
+            return ParkCar(car);
+        }
+
+        private Ticket ParkCar(Car car)
+        {
+            Ticket ticket = new Ticket();
+            parkedCars.Add(ticket, car);
+            capacity--;
+            return ticket;
+        }
+
+        private void CheckCapacity()
+        {
+            if (capacity == 0)
+            {
+                throw new NoPositonException();
+            }
+        }
+
+        private void ValidateCar(Car car)
         {
             if (car == null)
             {
@@ -24,26 +59,6 @@ namespace ParkingLot
             {
                 throw new ArgumentException();
             }
-
-            if (capacity == 0)
-            {
-                throw new NoPositonException();
-            }
-
-            Ticket ticket = new Ticket();
-            parkedCars.Add(ticket, car);
-            capacity--;
-            return ticket;
-        }
-
-        public Car Fetch(Ticket ticket)
-        {
-            if (ticket == null || !parkedCars.ContainsKey(ticket))
-            {
-                throw new WrongTicketException();
-            }
-
-            return parkedCars[ticket];
         }
     }
 }
